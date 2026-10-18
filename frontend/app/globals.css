@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f8f4;
+  --color-surface: #ffffff;
+  --color-ink: #233a32;
+  --color-muted: #586d63;
+  --color-line: #d9e2da;
+  --color-accent: #167365;
+  --color-accent-light: #e9f4ee;
+  --color-code: #f4f7f4;
+  --color-selected: #f0f9f4;
+  --color-highlight: #dcefd5;
+  --color-node-border: #aebfb4;
+  --color-code-muted: #637b6d;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-sans text-sm text-ink;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #a3b9ad transparent;
+  }
+
+  ::selection {
+    background: #b8dfcd;
+    color: #163f30;
+  }
+
+  :is(button, a, select, [tabindex]):focus-visible {
+    outline: 3px solid #238874;
+    outline-offset: 3px;
+  }
+}
+
+.react-flow__handle {
+  @apply size-1.5 border-0 bg-accent;
+}
+
+.react-flow__controls {
+  @apply overflow-hidden rounded-md border border-line shadow-none;
+}
+
+.react-flow__controls.horizontal {
+  flex-direction: row-reverse;
+}
+
+.react-flow__controls button {
+  border-radius: 0;
+}
+
+.token.comment {
+  color: var(--color-code-muted);
+}
+
+.token.keyword,
+.token.boolean {
+  color: #86507e;
+}
+
+.token.string {
+  color: #236d55;
+}
+
+.token.function {
+  color: #235d91;
+}
+
+.token.number {
+  color: #8a5723;
+}
+
+.token.operator {
+  color: #545b67;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
