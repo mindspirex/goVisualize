@@ -1,0 +1,7 @@
+*
+!go.mod
+!main.go
+!analyzer/
+!analyzer/**
+!web/
+!web/**

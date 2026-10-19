@@ -1,0 +1,33 @@
+name: govisualize
+
+services:
+  backend:
+    build: ./backend
+    init: true
+    environment:
+      GOVISUALIZE_API_ADDR: "0.0.0.0:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    stop_grace_period: 30s
+
+  frontend:
+    build: ./frontend
+    init: true
+    environment:
+      GOVISUALIZE_API_URL: "http://backend:8080"
+    ports:
+      - "127.0.0.1:${GOVISUALIZE_PORT:-3000}:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    stop_grace_period: 30s
